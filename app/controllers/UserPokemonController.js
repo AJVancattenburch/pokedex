@@ -7,27 +7,32 @@ import { setHTML } from "../utils/Writer.js";
 function _drawUserPokemon() {
   console.log('drawing user pokemon')
 
-  // let template = /*html*/ `
-  //   <div>
-  //     <div class="d-flex">
-  //       <p class="fw-4">
-  //         Prepared ${AppState.userPokemon.filter(p => p.prepared).length}/${AppState.userPokemon.length}
-  //       </p>
-  //     </div>
-  //   </div>`
+  let template = /*html*/ `
+    <div>
+      <div class="d-flex">
+        <p class="fw-4">
+          Prepared ${AppState.userPokemon.filter(p => p.prepared).length}/${AppState.userPokemon.length}
+        </p>
+      </div>
+    </div>`
 
-  //   AppState.userPokemon.forEach(s => {
-  //     template += s.UserPokemonTemplate
-  //   })
+    AppState.userPokemon.forEach(p => {
+      template += p.UserPokemonTemplate
+    })
 
-  //   setHTML('userPokemon', template)
+    setHTML('userPokemon', template)
 }
+
+
+
 export class UserPokemonController {
   constructor() {
     _drawUserPokemon()
     AppState.on('account', this.getUserPokemon)
-    // AppState.on('userPokemon', _drawUserPokemon)
+    AppState.on('userPokemon', _drawUserPokemon)
   }
+
+
 
   async getUserPokemon() {
     try {
@@ -36,4 +41,15 @@ export class UserPokemonController {
       Pop.error(error)
     }
   }
+
+  async addPokemon() {
+    try {
+      await userPokemonService.addPokemon()
+    } catch (error) {
+      Pop.error(error)
+    }
+  }
+
+
+
 }

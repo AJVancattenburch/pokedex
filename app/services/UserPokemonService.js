@@ -1,11 +1,18 @@
 import { AppState } from "../AppState.js"
 import { Pokemon } from "../models/Pokemon.js"
-import { pokeApi } from "../services/AxiosService.js"
+import { api } from "../services/AxiosService.js"
 
 class UserPokemonService {
+
+  async setActivePokemon() {
+    const res = await api.get('/pokeApi/v2/pokemon/' + '/1')
+    console.log('results', res.data.results)
+    AppState.userPokemon = res.data.map(s => new Pokemon(p))
+  }
+
   async getUserPokemon() {
-    const res = await pokeApi.get('/api/v2/pokemon')
-    AppState.userPokemon = res.data.results.map(p => new Pokemon(p))
+    const res = await api.get('/pokeApi/v2/pokemon')
+    AppState.userPokemon = res.data.results
   }
 }
 

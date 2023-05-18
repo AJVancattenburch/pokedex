@@ -11,7 +11,7 @@ function _drawPokemon() {
   AppState.pokemon.forEach(p => {
     template += /*html*/`
       <div>
-        <p class="fs-4 selectable" role="button" onclick="app.PokemonController.drawActivePokemon('${p.url}')">${p.name}</p>
+        <p class="fs-4 selectable" role="button" onclick="app.PokemonController.setActivePokemon('${p.url}')">${p.name}</p>
       </div>`
   })
 
@@ -23,7 +23,6 @@ function _drawActivePokemon() {
 }
 export class PokemonController {
   constructor() {
-    this.getPokemonFromApi()
     AppState.on('pokemon', _drawPokemon)
     AppState.on('activePokemon', _drawActivePokemon)
     console.log('poking at the mon')
@@ -38,4 +37,25 @@ export class PokemonController {
       Pop.error(error)
     }
   }
+
+  async setActivePokemon(results) {
+    try {
+      await pokemonService.setActivePokemon(results)
+    } catch (error) {
+      Pop.error(error)
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

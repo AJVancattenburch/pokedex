@@ -9,13 +9,9 @@ export const api = axios.create({
   withCredentials: true
 })
 
+
 export const pokeApi = axios.create({
   baseURL: 'https://pokeapi.co/',
-  timeout: 8000
-})
-
-export const spriteApi = axios.create({
-  baseURL: 'https://raw.githubusercontent.com/',
   timeout: 8000
 })
 
